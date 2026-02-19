@@ -55,8 +55,8 @@ if (-not (Test-Path ".git")) {
 Write-Host "Setting remote origin and pushing..."
 git remote remove origin 2>$null | Out-Null
 git remote add origin "https://github.com/$user/$repoName.git"
-git branch -M main 2>$null | Out-Null
-git push -u origin main --force
+git branch -M master 2>$null | Out-Null
+git push -u origin master --force
 
 Write-Host "Parsing TODO.md and creating GitHub Issues..." -ForegroundColor Cyan
 $lines = Get-Content TODO.md

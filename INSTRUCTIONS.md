@@ -1,7 +1,7 @@
 
 # Project: frauen-ermutigt — Instructions
 
-Short summary: Static business‑card website for a consulting offering; deployment via GitHub Actions to Hetzner (staging/main). No forms or cookies initially.
+Short summary: Static business‑card website for a consulting offering; deployment via GitHub Actions to Hetzner (staging/master). No forms or cookies initially.
 
 Important paths
 - Project root: `C:/Users/thiemo/repos/frauen-ermutigt`
@@ -10,9 +10,9 @@ Important paths
 - arc42 docs: `doc/arc42/`
 
 Branching & workflow
-- `main` = production (push → prod deploy)
+- `master` = production (push → prod deploy)
 - `staging` = test (push → staging deploy)
-- Feature branches: `feature/*` → PR → `staging` → test → PR from `staging` → `main`
+- Feature branches: `feature/*` → PR → `staging` → test → PR from `staging` → `master`
 
 Local development
 1. Open PowerShell or CMD in the project folder.
@@ -25,7 +25,7 @@ python -m http.server 8000
 
 Deployment (summary)
 - Set the following GitHub repository secrets: `HETZNER_HOST`, `HETZNER_USER`, `HETZNER_SSH_PRIVATE_KEY`, `DEPLOY_PATH_STAGING`, `DEPLOY_PATH_PROD`.
-- Pushes to `staging` trigger the staging deploy; merging `staging` into `main` triggers the production deploy.
+- Pushes to `staging` trigger the staging deploy; merging `staging` into `master` triggers the production deploy.
 
 Rollback & cleanup
 - Deploys are atomic: each deploy creates a new release folder and updates the `current` symlink; previous releases are retained (max 5) and cleaned up automatically.
