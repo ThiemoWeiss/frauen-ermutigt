@@ -1,0 +1,30 @@
+name: Deploy Production
+
+on:
+  push:
+    branches: [ 'main' ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.8.1
+        with:
+          ssh-private-key: ${{ secrets.HETZNER_SSH_PRIVATE_KEY }}
+
+      - name: Create release and rsync
+        env:
+          HOST: ${{ secrets.HETZNER_HOST }}
+          USER: ${{ secrets.HETZNER_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH_PROD }}
+        run: |
+          TIMESTAMP=$(date -u +"%Y%m%d%H%M%S")
+          RELEASE_DIR="$DEPLOY_PATH/releases/$TIMESTAMP"
+          ssh -o StrictHostKeyChecking=no $USER@$HOST "mkdir -p $RELEASE_DIR"
+          rsync -av --delete --exclude='.git' ./ $USER@$HOST:$RELEASE_DIR/
+          ssh $USER@$HOST "ln -sfn $RELEASE_DIR $DEPLOY_PATH/current"
+          # keep last 5 releases
+          ssh $USER@$HOST "ls -1dt $DEPLOY_PATH/releases/* | tail -n +6 | xargs -r rm -rf --"

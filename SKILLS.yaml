@@ -1,0 +1,19 @@
+skills:
+  - name: HTML
+    level: advanced
+    notes: 'Page structure, metadata, SEO basics'
+  - name: CSS
+    level: advanced
+    notes: 'Responsive, mobile-first styling'
+  - name: Git
+    level: advanced
+    notes: 'Branching, PRs, basic workflows'
+  - name: GitHub Actions
+    level: intermediate
+    notes: 'CI workflows for deploys'
+  - name: SSH/rsync
+    level: intermediate
+    notes: 'Key management, atomic deploys via release dirs and symlink swap'
+  - name: Hetzner
+    level: beginner
+    notes: 'Server provisioning, webserver setup (Nginx)'

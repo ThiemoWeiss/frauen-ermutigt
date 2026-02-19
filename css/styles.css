@@ -1,0 +1,19 @@
+:root{
+  --bg: #ffffff;
+  --text: #222;
+  --accent: #0b5fff;
+  --muted: #666;
+}
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; margin:0;background:var(--bg);color:var(--text);line-height:1.5}
+.container{max-width:900px;margin:0 auto;padding:1rem}
+.site-header{border-bottom:1px solid #eee;background:#fafafa}
+.brand{margin:0;padding:1rem 0;display:inline-block}
+.nav{list-style:none;margin:0;padding:0;display:flex;gap:.75rem}
+.nav a{display:block;padding:1rem;color:var(--text);text-decoration:none}
+.hero{padding:2rem 0}
+.pricing{width:100%;border-collapse:collapse;margin-top:1rem}
+.pricing th,.pricing td{border:1px solid #e6e6e6;padding:.5rem;text-align:left}
+.site-footer{border-top:1px solid #eee;margin-top:2rem;padding:1rem 0;text-align:center;color:var(--muted)}
+
+@media (max-width:600px){.nav{flex-direction:column}.container{padding:.75rem}}
