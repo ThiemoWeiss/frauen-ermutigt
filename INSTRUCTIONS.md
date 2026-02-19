@@ -24,14 +24,18 @@ python -m http.server 8000
 ```
 
 Deployment (summary)
-- Set the following GitHub repository secrets: `HETZNER_HOST`, `HETZNER_USER`, `HETZNER_SSH_PRIVATE_KEY`, `DEPLOY_PATH_STAGING`, `DEPLOY_PATH_PROD`.
+- Set the following GitHub Environment secrets (staging/production): `FTP_HOST`, `FTP_USER`, `FTP_PASS`.
 - Pushes to `staging` trigger the staging deploy; merging `staging` into `master` triggers the production deploy.
 
+Hosting / DocumentRoot
+- production.frauen-ermutigt.de -> /public_html/production (DocumentRoot points here)
+- staging.frauen-ermutigt.de -> /public_html/staging
+
 Rollback & cleanup
-- Deploys are atomic: each deploy creates a new release folder and updates the `current` symlink; previous releases are retained (max 5) and cleaned up automatically.
+- FTP deploys update files in place. Keep external backups for rollback.
 
 Administration / contact
-- Server admin: SSH access to the Hetzner host (deployer user) is required.
+- Server admin: FTP/FTPS access to the Hetzner host (deployer user) is required.
 - Repo admin: permission to set secrets and create branches is required.
 
 Other documents
@@ -44,6 +48,7 @@ Note: Please provide logo, color palette, and final texts so I can adapt styles 
 GitHub workflow requirement
 - All project tasks shall be tracked using GitHub Issues going forward.
 - To create the GitHub repository and migrate the current `TODO.md` tasks into Issues, run the script `scripts\create_issues.ps1` (see below). The script uses the GitHub CLI (`gh`) and requires an authenticated `gh` session.
+- After migration, do not add new tasks to `TODO.md`.
 
 Quick steps summary to create repo and migrate issues (local):
 1. Install Git and GitHub CLI (`gh`) and authenticate: `gh auth login`.

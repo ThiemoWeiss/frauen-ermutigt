@@ -7,7 +7,7 @@ This document is a simplified arc42 sketch for the static website project `fraue
 - Stakeholders: Consultant (owner), Server administrator, End users.
 
 2. Constraints
-- Hosted on Hetzner (VM with SSH). Repository on GitHub.
+- Hosted on Hetzner (webhosting/VM with FTPS). Repository on GitHub.
 - No dynamic server components, no forms initially.
 
 3. Context and scope
@@ -15,8 +15,8 @@ This document is a simplified arc42 sketch for the static website project `fraue
 - External dependencies: GitHub Actions (CI), Hetzner (hosting).
 
 4. Solution concept
-- Single repository with `staging` and `main` branches.
-- Deploy: GitHub Actions synchronizes artifacts via rsync into atomic release folders; a `current` symlink points to the active release.
+- Single repository with `staging` and `master` branches.
+- Deploy: GitHub Actions uploads files via FTPS (user/password) to the target directory.
 
 5. Building blocks
 - Content: HTML pages and assets (`/css`, `/images`).
@@ -24,19 +24,20 @@ This document is a simplified arc42 sketch for the static website project `fraue
 - Server: web server (e.g. Nginx) serves the `current` directory.
 
 6. Runtime operation
-- Deploy steps: push → (optional) build → rsync → symlink swap → health check.
+- Deploy steps: push → (optional) build → FTPS upload → health check.
 - Monitoring: simple HTTP health checks; logs available on the server.
+- DocumentRoot: production.frauen-ermutigt.de -> /public_html/production, staging.frauen-ermutigt.de -> /public_html/staging.
 
 7. Quality requirements
 - Performance: low latency; static files cached.
-- Security: SSH key authentication; no public write endpoints.
-- Availability: simple rollback via symlink switch.
+- Security: FTPS (TLS); no public write endpoints.
+- Availability: rollback via external backup/restore if needed.
 
 8. Risks
-- Misconfigured symlink or permissions → web server errors.
-- Accidental deletion due to improper cleanup scripts.
+- Misconfigured permissions or FTP target directory → web server errors.
+- Accidental deletion due to incorrect upload settings.
 
 9. Open issues
-- Web server configuration (DocumentRoot pointing to `current`?), Let's Encrypt/SSL setup, domain and hostnames.
+- Web server configuration (DocumentRoot pointing to `current`?), Let's Encrypt/SSL setup.
 
 Further: Expand this sketch with diagrams and detailed configuration files as needed.

@@ -1,5 +1,7 @@
 # Project TODO — frauen-ermutigt
 
+Deprecated: This file is no longer the source of truth. Use GitHub Issues for all new tasks. See INSTRUCTIONS.md for the migration script.
+
 This file contains the project's current tasks so that other tools or instances can read them.
 
 - [ ] Choose Hetzner server type (VM or webhosting)
